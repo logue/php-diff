@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-		<title>PHP LibDiff - Examples 构建具有中国特色的医学人才培养体系</title>
+		<title>PHP LibDiff - Examples</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8"/>
 	</head>
 	<body>
@@ -12,7 +12,20 @@
 		<?php
 
 		// Include the diff class
-		require_once dirname(__FILE__).'/../lib/Diff.php';
+spl_autoload_register(function($class) {
+	$parts = explode('\\', $class);
+
+	# Support for non-namespaced classes.
+	$parts[] = str_replace('_', DIRECTORY_SEPARATOR, array_pop($parts));
+
+	//$path = implode(DIRECTORY_SEPARATOR, $parts);
+	$path = '../lib/' . implode(DIRECTORY_SEPARATOR, $parts);
+
+	$file = stream_resolve_include_path($path.'.php');
+	if($file !== false) {
+		require $file;
+	}
+});
 
 		// Include two sample files for comparison
 		$a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
@@ -25,15 +38,14 @@
 		);
 
 		// Initialize the diff class
-		$diff = new Diff($a, $b, $options);
+		$diff = new \Diff($a, $b, $options);
 
 		?>
 		<h2>Side by Side Diff</h2>
 		<?php
 
 		// Generate a side by side diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/SideBySide.php';
-		$renderer = new Diff_Renderer_Html_SideBySide;
+		$renderer = new \Diff\Renderer\Html\SideBySide;
 		echo $diff->Render($renderer);
 
 		?>
@@ -41,8 +53,7 @@
 		<?php
 
 		// Generate an inline diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/Inline.php';
-		$renderer = new Diff_Renderer_Html_Inline;
+		$renderer = new \Diff\Renderer\Html\Inline;
 		echo $diff->render($renderer);
 
 		?>
@@ -50,8 +61,7 @@
 		<pre><?php
 
 		// Generate a unified diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Text/Unified.php';
-		$renderer = new Diff_Renderer_Text_Unified;
+		$renderer = new \Diff\Renderer\Text\Unified;
 		echo htmlspecialchars($diff->render($renderer));
 
 		?>
@@ -60,8 +70,7 @@
 		<pre><?php
 
 		// Generate a context diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Text/Context.php';
-		$renderer = new Diff_Renderer_Text_Context;
+		$renderer = new \Diff\Renderer\Text\Context;
 		echo htmlspecialchars($diff->render($renderer));
 		?>
 		</pre>

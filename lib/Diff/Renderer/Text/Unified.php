@@ -40,9 +40,11 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/../Abstract.php';
+namespace Diff\Renderer\Text;
 
-class Diff_Renderer_Text_Unified extends Diff_Renderer_Abstract
+use Diff\Renderer\AbstractRenderer;
+
+class Unified extends AbstractRenderer
 {
 	/**
 	 * Render and return a unified diff.
@@ -69,15 +71,15 @@ class Diff_Renderer_Text_Unified extends Diff_Renderer_Abstract
 			foreach($group as $code) {
 				list($tag, $i1, $i2, $j1, $j2) = $code;
 				if($tag == 'equal') {
-					$diff .= ' '.implode("\n ", $this->diff->GetA($i1, $i2))."\n";
+					$diff .= ' '.join("\n ", $this->diff->GetA($i1, $i2))."\n";
 				}
 				else {
 					if($tag == 'replace' || $tag == 'delete') {
-						$diff .= '-'.implode("\n-", $this->diff->GetA($i1, $i2))."\n";
+						$diff .= '-'.join("\n-", $this->diff->GetA($i1, $i2))."\n";
 					}
 
 					if($tag == 'replace' || $tag == 'insert') {
-						$diff .= '+'.implode("\n+", $this->diff->GetB($j1, $j2))."\n";
+						$diff .= '+'.join("\n+", $this->diff->GetB($j1, $j2))."\n";
 					}
 				}
 			}

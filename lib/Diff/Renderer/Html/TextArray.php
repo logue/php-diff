@@ -40,9 +40,11 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/../Abstract.php';
+namespace Diff\Renderer\Html;
 
-class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
+use Diff\Renderer\AbstractRenderer;
+
+class TextArray extends AbstractRenderer
 {
 	/**
 	 * @var array Array of the default options that apply to this renderer.

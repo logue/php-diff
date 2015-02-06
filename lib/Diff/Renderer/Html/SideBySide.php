@@ -40,9 +40,9 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/Array.php';
+namespace Diff\Renderer\Html;
 
-class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
+class SideBySide extends TextArray
 {
 	/**
 	 * Render a and return diff with changes between the two sequences

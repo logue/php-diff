@@ -1,7 +1,17 @@
 {
-    "name": "chrisboulton/php-diff",
+    "name": "logue/php-diff",
+    "repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/logue/php-diff"
+		}
+	],
 	"type": "library",
     "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+    "keywords": [
+		"php",
+		"diff"
+	],
     "authors": [
         {
             "name": "Chris Boulton",

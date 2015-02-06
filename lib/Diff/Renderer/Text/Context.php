@@ -40,9 +40,11 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/../Abstract.php';
+namespace Diff\Renderer\Text;
 
-class Diff_Renderer_Text_Context extends Diff_Renderer_Abstract
+use Diff\Renderer\AbstractRenderer;
+
+class Context extends AbstractRenderer
 {
 	/**
 	 * @var array Array of the different opcode tags and how they map to the context diff equivalent.
