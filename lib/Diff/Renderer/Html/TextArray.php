@@ -243,7 +243,7 @@ class TextArray extends AbstractRenderer
 
 		$div = floor($count / 2);
 		$mod = $count % 2;
-		return str_repeat(' ', $div).str_repeat('&nbsp;', $mod);
+		return str_repeat(' ', $div).str_repeat(' ', $mod);
 	}
 
 	/**

@@ -72,13 +72,13 @@ class Diff
 	 * @var array Associative array of the default options available for the diff class and their default value.
 	 */
 	private $defaultOptions = array(
-		'context' => 3,
-		'ignoreNewLines' => false,
-		'ignoreWhitespace' => false,
-		'ignoreCase' => false,
-		'title_a'=>'Old Version',
-		'title_b'=>'New Version',
-		'labelDifferences'=>'Differences'
+		'context'           => 3,
+		'ignoreNewLines'    => false,
+		'ignoreWhitespace'  => false,
+		'ignoreCase'        => false,
+		'title_a'           =>'Old Version',
+		'title_b'           =>'New Version',
+		'labelDifferences'  =>'Differences'
 	);
 
 	/**
@@ -112,7 +112,7 @@ class Diff
 	public function render(\Diff\Renderer\AbstractRenderer $renderer)
 	{
 		$renderer->diff = $this;
-		return $renderer->render();
+		return $renderer->render($this->options);
 	}
 
 	/**
@@ -127,16 +127,11 @@ class Diff
 	 */
 	public function getA($start=0, $end=null)
 	{
-		if($start == 0 && $end === null) {
+		if($start === 0 && $end === null) {
 			return $this->a;
 		}
 
-		if($end === null) {
-			$length = 1;
-		}
-		else {
-			$length = $end - $start;
-		}
+		$length = ($end === null) ? 1 : ($end - $start);
 
 		return array_slice($this->a, $start, $length);
 
@@ -154,16 +149,11 @@ class Diff
 	 */
 	public function getB($start=0, $end=null)
 	{
-		if($start == 0 && $end === null) {
+		if($start === 0 && $end === null) {
 			return $this->b;
 		}
 
-		if($end === null) {
-			$length = 1;
-		}
-		else {
-			$length = $end - $start;
-		}
+		$length = ($end === null) ? 1 : ($end - $start);
 
 		return array_slice($this->b, $start, $length);
 	}

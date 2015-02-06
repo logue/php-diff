@@ -1,8 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta charset="utf-8"/>
 		<title>PHP LibDiff - Examples</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8"/>
 	</head>
@@ -35,6 +34,9 @@ spl_autoload_register(function($class) {
 		$options = array(
 			//'ignoreWhitespace' => true,
 			//'ignoreCase' => true,
+			'title_a'=>'旧',
+			'title_b'=>'新',
+			'labelDifferences'=>'差分'
 		);
 
 		// Initialize the diff class
