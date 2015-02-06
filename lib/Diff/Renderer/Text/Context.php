@@ -50,10 +50,10 @@ class Context extends AbstractRenderer
 	 * @var array Array of the different opcode tags and how they map to the context diff equivalent.
 	 */
 	private $tagMap = array(
-		'insert' => '+',
-		'delete' => '-',
-		'replace' => '!',
-		'equal' => ' '
+		'insert'    => '+',
+		'delete'    => '-',
+		'replace'   => '!',
+		'equal'     => ' '
 	);
 
 	/**
@@ -63,29 +63,19 @@ class Context extends AbstractRenderer
 	 */
 	public function render()
 	{
-		$diff = '';
+		$diff = array();
 		$opCodes = $this->diff->getGroupedOpcodes();
 		foreach($opCodes as $group) {
-			$diff .= "***************\n";
+			$diff[] = '***************';
 			$lastItem = count($group)-1;
 			$i1 = $group['0']['1'];
 			$i2 = $group[$lastItem]['2'];
 			$j1 = $group['0']['3'];
 			$j2 = $group[$lastItem]['4'];
 
-			if($i2 - $i1 >= 2) {
-				$diff .= '*** '.($group['0']['1'] + 1).','.$i2." ****\n";
-			}
-			else {
-				$diff .= '*** '.$i2." ****\n";
-			}
+			$diff[] = '*** ' . ( ($i2 - $i1 >= 2) ? ($group['0']['1'] + 1).','.$i2 : '.$i2.') . ' ****';
 
-			if($j2 - $j1 >= 2) {
-				$separator = '--- '.($j1 + 1).','.$j2." ----\n";
-			}
-			else {
-				$separator = '--- '.$j2." ----\n";
-			}
+			$separator = '--- '.( ($j2 - $j1 >= 2) ? ($j1 + 1).','.$j2 : $j2) . ' ----';
 
 			$hasVisible = false;
 			foreach($group as $code) {
@@ -101,7 +91,7 @@ class Context extends AbstractRenderer
 					if($tag == 'insert') {
 						continue;
 					}
-					$diff .= $this->tagMap[$tag].' '.implode("\n".$this->tagMap[$tag].' ', $this->diff->GetA($i1, $i2))."\n";
+					$diff[] = $this->tagMap[$tag].' '.join("\n".$this->tagMap[$tag].' ', $this->diff->GetA($i1, $i2));
 				}
 			}
 
@@ -113,7 +103,7 @@ class Context extends AbstractRenderer
 				}
 			}
 
-			$diff .= $separator;
+			$diff[] = $separator;
 
 			if($hasVisible) {
 				foreach($group as $code) {
@@ -121,10 +111,10 @@ class Context extends AbstractRenderer
 					if($tag == 'delete') {
 						continue;
 					}
-					$diff .= $this->tagMap[$tag].' '.implode("\n".$this->tagMap[$tag].' ', $this->diff->GetB($j1, $j2))."\n";
+					$diff[] = $this->tagMap[$tag].' '.join("\n".$this->tagMap[$tag].' ', $this->diff->GetB($j1, $j2));
 				}
 			}
 		}
-		return $diff;
+		return join("\n", $diff);
 	}
 }

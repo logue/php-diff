@@ -47,13 +47,21 @@ use Diff\Renderer\AbstractRenderer;
 class Unified extends AbstractRenderer
 {
 	/**
+	 * @var array Array of the different opcode tags and how they map to the context diff equivalent.
+	 */
+	private $tagMap = array(
+		'insert'    => '+',
+		'delete'    => '-',
+		'equal'     => ' '
+	);
+	/**
 	 * Render and return a unified diff.
 	 *
 	 * @return string The unified diff.
 	 */
 	public function render()
 	{
-		$diff = '';
+		$diff = array();
 		$opCodes = $this->diff->getGroupedOpcodes();
 		foreach($opCodes as $group) {
 			$lastItem = count($group)-1;
@@ -67,23 +75,23 @@ class Unified extends AbstractRenderer
 				$i2 = -1;
 			}
 
-			$diff .= '@@ -'.($i1 + 1).','.($i2 - $i1).' +'.($j1 + 1).','.($j2 - $j1)." @@\n";
+			$diff[] = '@@ -'.($i1 + 1).','.($i2 - $i1).' +'.($j1 + 1).','.($j2 - $j1).' @@';
 			foreach($group as $code) {
 				list($tag, $i1, $i2, $j1, $j2) = $code;
-				if($tag == 'equal') {
-					$diff .= ' '.join("\n ", $this->diff->GetA($i1, $i2))."\n";
+				if($tag === 'equal') {
+					$diff[] = $this->tagMap[$tag].join("\n".$this->tagMap[$tag], $this->diff->GetA($i1, $i2));
 				}
 				else {
-					if($tag == 'replace' || $tag == 'delete') {
-						$diff .= '-'.join("\n-", $this->diff->GetA($i1, $i2))."\n";
+					if($tag === 'replace' || $tag === 'delete') {
+						$diff[] = $this->tagMap['delete'].join("\n".$this->tagMap['delete'], $this->diff->GetA($i1, $i2));
 					}
 
 					if($tag == 'replace' || $tag == 'insert') {
-						$diff .= '+'.join("\n+", $this->diff->GetB($j1, $j2))."\n";
+						$diff[] = $this->tagMap['insert'].join("\n".$this->tagMap['insert'], $this->diff->GetB($j1, $j2));
 					}
 				}
 			}
 		}
-		return $diff;
+		return join("\n", $diff);
 	}
 }
