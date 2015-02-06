@@ -69,8 +69,8 @@ class SideBySide extends TextArray
 		foreach($changes as $i => $blocks) {
 			if($i > 0) {
 				$html .= '<tbody class="Skipped">';
-				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
-				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
+				$html .= '<th>&#133;</th><td></td>';
+				$html .= '<th>&#133;</th><td></td>';
 				$html .= '</tbody>';
 			}
 
@@ -83,9 +83,9 @@ class SideBySide extends TextArray
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</span></td>';
+						$html .= '<td class="Left"><span>'.$line.'</span></span></td>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><span>'.$line.'</span>&nbsp;</span></td>';
+						$html .= '<td class="Right"><span>'.$line.'</span></span></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -94,10 +94,10 @@ class SideBySide extends TextArray
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Left">&nbsp;</td>';
+						$html .= '<th></th>';
+						$html .= '<td class="Left"></td>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><ins>'.$line.'</ins>&nbsp;</td>';
+						$html .= '<td class="Right"><ins>'.$line.'</ins></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -107,9 +107,9 @@ class SideBySide extends TextArray
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><del>'.$line.'</del>&nbsp;</td>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Right">&nbsp;</td>';
+						$html .= '<td class="Left"><del>'.$line.'</del></td>';
+						$html .= '<th></th>';
+						$html .= '<td class="Right"></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -120,10 +120,10 @@ class SideBySide extends TextArray
 							$fromLine = $change['base']['offset'] + $no + 1;
 							$html .= '<tr>';
 							$html .= '<th>'.$fromLine.'</th>';
-							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							$html .= '<td class="Left"><span>'.$line.'</span></td>';
 							if(!isset($change['changed']['lines'][$no])) {
-								$toLine = '&nbsp;';
-								$changedLine = '&nbsp;';
+								$toLine = '';
+								$changedLine = '';
 							}
 							else {
 								$toLine = $change['base']['offset'] + $no + 1;
@@ -137,8 +137,8 @@ class SideBySide extends TextArray
 					else {
 						foreach($change['changed']['lines'] as $no => $changedLine) {
 							if(!isset($change['base']['lines'][$no])) {
-								$fromLine = '&nbsp;';
-								$line = '&nbsp;';
+								$fromLine = '';
+								$line = '';
 							}
 							else {
 								$fromLine = $change['base']['offset'] + $no + 1;
@@ -146,7 +146,7 @@ class SideBySide extends TextArray
 							}
 							$html .= '<tr>';
 							$html .= '<th>'.$fromLine.'</th>';
-							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							$html .= '<td class="Left"><span>'.$line.'</span></td>';
 							$toLine = $change['changed']['offset'] + $no + 1;
 							$html .= '<th>'.$toLine.'</th>';
 							$html .= '<td class="Right">'.$changedLine.'</td>';

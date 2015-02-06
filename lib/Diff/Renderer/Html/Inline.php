@@ -72,9 +72,9 @@ class Inline extends TextArray
 			// it is the same
 			if($i > 0) {
 				$html .= '<tbody class="Skipped">';
-				$html .= '<th>&hellip;</th>';
-				$html .= '<th>&hellip;</th>';
-				$html .= '<td>&nbsp;</td>';
+				$html .= '<th>&#133;</th>';
+				$html .= '<th>&#133;</th>';
+				$html .= '<td></td>';
 				$html .= '</tbody>';
 			}
 
@@ -97,9 +97,9 @@ class Inline extends TextArray
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>&nbsp;</th>';
+						$html .= '<th></th>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><ins>'.$line.'</ins>&nbsp;</td>';
+						$html .= '<td class="Right"><ins>'.$line.'</ins></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -109,8 +109,8 @@ class Inline extends TextArray
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Left"><del>'.$line.'</del>&nbsp;</td>';
+						$html .= '<th></th>';
+						$html .= '<td class="Left"><del>'.$line.'</del></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -120,7 +120,7 @@ class Inline extends TextArray
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
+						$html .= '<th></th>';
 						$html .= '<td class="Left"><span>'.$line.'</span></td>';
 						$html .= '</tr>';
 					}
@@ -128,7 +128,7 @@ class Inline extends TextArray
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>&nbsp;</th>';
+						$html .= '<th></th>';
 						$html .= '<th>'.$toLine.'</th>';
 						$html .= '<td class="Right"><span>'.$line.'</span></td>';
 						$html .= '</tr>';
